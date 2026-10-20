@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>سُخنک</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap">
+<style>
+:root{--bg:#fff;--ink:#1f1f1f;--mut:#6b6b6b;--line:#e8e8e8;--acc:#8f2638;--soft:#f5f5f4;--ui:'Noto Naskh Arabic','Noto Sans Arabic',Tahoma,sans-serif;--disp:'Noto Nastaliq Urdu','Noto Naskh Arabic',serif;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121212;--ink:#ededed;--mut:#a0a0a0;--line:#2b2b2b;--acc:#e5808f;--soft:#1d1d1d;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121212;--ink:#ededed;--mut:#a0a0a0;--line:#2b2b2b;--acc:#e5808f;--soft:#1d1d1d;color-scheme:dark}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px);scroll-behavior:smooth}
+*,*:before,*:after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.9 var(--ui)}
+body:before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:11;height:60px;background:var(--bg);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 max(20px,calc((100% - 720px)/2))}
+.logo{font:700 30px/1.5 var(--disp);color:var(--ink);text-decoration:none}
+.nav{display:flex;align-items:center;gap:18px}.nav a{color:var(--mut);text-decoration:none;font-size:15px}
+.btn{border:1px solid var(--ink);background:var(--ink);color:var(--bg);border-radius:999px;padding:6px 18px;font:500 15px var(--ui);cursor:pointer}
+.btn.o{background:transparent;color:var(--ink);border-color:var(--line)}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px}
+.tabs{display:flex;gap:22px;overflow-x:auto;border-bottom:1px solid var(--line)}
+.tab{background:none;border:0;border-bottom:2px solid transparent;color:var(--mut);padding:12px 0;font:500 15px var(--ui);cursor:pointer;white-space:nowrap}.tab.on{color:var(--ink);border-color:var(--ink)}
+.post{padding:24px 0;border-bottom:1px solid var(--line)}
+.by{display:flex;align-items:center;gap:8px;font-size:14px}.av{width:26px;height:26px;border-radius:50%;background:var(--soft);border:1px solid var(--line);display:grid;place-items:center;font-size:13px}.bio{color:var(--mut)}.bio:before{content:"·";margin-inline-end:8px}
+.cd{display:flex;gap:16px;align-items:flex-start;margin:10px 0 12px}.tx{flex:1;min-width:0}.th{flex:0 0 160px;height:108px;border-radius:4px;overflow:hidden;background:var(--soft)}
+.post h3{font:700 22px/1.9 var(--disp);margin:0 0 2px}
+.post p{margin:0;color:var(--mut);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+@media(max-width:520px){.post h3{font-size:19px}.th{flex-basis:96px;height:72px}}
+.row{display:flex;align-items:center;flex-wrap:wrap;gap:8px 10px;font-size:13px;color:var(--mut)}.chip{background:var(--soft);border-radius:999px;padding:1px 12px;color:var(--ink)}.sp{flex:1}
+.ic{display:flex;align-items:center;gap:5px;background:none;border:0;color:var(--mut);font:14px var(--ui);cursor:pointer;padding:4px 6px}.ic:hover{color:var(--ink)}.ic.on{color:var(--acc)}.ic.on svg{fill:currentColor}
+.empty{padding:40px 0;text-align:center;color:var(--mut)}
+.foot{padding:30px 20px 40px;color:var(--mut);font-size:13px;text-align:center}.foot nav{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-bottom:6px}.foot a{color:var(--mut);text-decoration:none}
+.mb{position:fixed;inset:0;background:#0009;display:none;align-items:center;justify-content:center;padding:16px;z-index:30}.mb.open{display:flex}
+.md{background:var(--bg);color:var(--ink);width:min(560px,100%);max-height:90vh;overflow:auto;border:1px solid var(--line);border-radius:10px;padding:22px}
+.mh{display:flex;justify-content:space-between;align-items:center}.mh h2{font:700 21px/1.8 var(--disp);margin:0}.x{background:none;border:0;color:var(--mut);font-size:26px;cursor:pointer}
+.md small{color:var(--mut)}
+.f{display:grid;gap:4px;margin:12px 0}.f input,.f textarea,.f select{border:1px solid var(--line);border-radius:6px;padding:9px 11px;background:var(--bg);color:var(--ink);font:inherit}.f textarea{min-height:130px;resize:vertical}
+.cm{background:var(--soft);border-radius:6px;padding:8px 12px;margin:8px 0;font-size:14px}
+.toast{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0px));left:50%;transform:translate(-50%,16px);background:var(--ink);color:var(--bg);padding:8px 16px;border-radius:8px;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:40}.toast.show{opacity:1;transform:translate(-50%,0)}
+.q{flex:1;min-width:0;margin:0 14px;max-width:480px;background:var(--soft);border:0;border-radius:999px;padding:6px 16px;color:var(--ink);font:15px var(--ui)}.q::placeholder{color:var(--mut)}
+.ib{width:40px;height:40px;border:0;border-radius:50%;background:none;color:var(--ink);display:grid;place-items:center;cursor:pointer}.ib:hover{background:var(--soft)}
+.ed{position:fixed;inset:0;z-index:20;background:var(--bg);overflow:auto;display:none}.ed.open{display:block}
+.eb{position:sticky;top:0;z-index:2;background:var(--bg);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;height:calc(56px + env(safe-area-inset-top,0px));padding:env(safe-area-inset-top,0px) max(16px,calc((100% - 720px)/2)) 0}.eb small{color:var(--mut)}.eb select{width:auto;border:0;background:none;color:var(--ink);font:15px var(--ui)}
+.tb{position:sticky;top:calc(56px + env(safe-area-inset-top,0px));z-index:2;background:var(--bg);border-bottom:1px solid var(--line);display:flex;gap:4px;overflow-x:auto;padding:6px max(16px,calc((100% - 720px)/2))}
+.tb button{min-width:38px;height:34px;border:0;border-radius:6px;background:none;color:var(--ink);font:500 15px var(--ui);cursor:pointer;white-space:nowrap}.tb button:hover{background:var(--soft)}
+.pg{max-width:680px;margin:0 auto;padding:24px 20px 80px}.pg input{border:0;outline:0;background:none;color:var(--ink);width:100%}.pg input::placeholder{color:var(--mut);opacity:.7}
+.pg .nm{font:15px var(--ui);color:var(--mut)}.pg .et{font:700 34px/1.8 var(--disp)}.pg .es{font:20px/2 var(--disp);color:var(--mut)}.pg .cp{font:14px var(--ui);color:var(--mut);text-align:center}
+.cv{margin:14px 0 4px;border:1px dashed var(--line);border-radius:8px;padding:18px;text-align:center;color:var(--mut);cursor:pointer}.cv img{width:100%;max-height:360px;object-fit:cover;border-radius:6px;display:block}
+.bd{outline:0;min-height:300px;font:20px/2.4 var(--disp);margin-top:12px}.bd:empty:before{content:attr(data-ph);color:var(--mut)}.bd h2{font:700 26px/2 var(--disp)}.bd blockquote{margin:12px 0;padding-inline-start:16px;border-inline-start:3px solid var(--ink);color:var(--mut)}.sh{text-align:center;margin:16px 0}
+</style>
+</head>
+<body>
+<header class="top"><a class="logo" href="#" aria-label="سُخنک">سُخنک</a><input class="q" id="q" type="search" placeholder="تلاش کریں" aria-label="تلاش"><nav class="nav"><button class="ib" id="w1" aria-label="لکھیں" title="لکھیں"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.1 2.1 0 0 1 3 3L12 14l-4 1 1-4z"/></svg></button></nav></header>
+<main class="wrap">
+
+<div class="tabs" id="tabs"><button class="tab on" data-t="سب">سب</button><button class="tab" data-t="ٹیکنالوجی">ٹیکنالوجی</button><button class="tab" data-t="تعلیم">تعلیم</button><button class="tab" data-t="ادب">ادب</button><button class="tab" data-t="سماج">سماج</button></div>
+
+<section id="feed"></section>
+</main>
+<footer class="foot"><nav><a href="#">ہمارے بارے میں</a><a href="#">اصولِ تحریر</a><a href="#">پرائیویسی</a><a href="#">رابطہ</a></nav>© سُخنک · ابتدائی ڈیمو</footer>
+<div class="ed" id="ed"><div class="eb"><button class="btn o" id="ex">واپس</button><small id="st"></small><span class="sp"></span><select id="ec" aria-label="موضوع"><option>ٹیکنالوجی</option><option>تعلیم</option><option>ادب</option><option>سماج</option></select><button class="btn" id="ep">شائع کریں</button></div>
+<div class="tb" id="tb"><button data-c="bold"><b>B</b></button><button data-c="underline"><u>U</u></button><button data-c="formatBlock" data-v="h2">عنوان</button><button data-c="formatBlock" data-v="blockquote">اقتباس</button><button data-c="insertUnorderedList">فہرست</button><button data-c="sh">شعر</button><button data-c="removeFormat">صاف</button><button data-c="undo">↶</button><button data-c="redo">↷</button></div>
+<div class="pg"><input class="nm" id="ea" placeholder="آپ کا نام"><input class="et" id="et" placeholder="عنوان" maxlength="120"><input class="es" id="es" placeholder="ذیلی عنوان (اختیاری)" maxlength="160"><div class="cv" id="cv">＋ کور تصویر شامل کریں</div><input type="file" id="ei" accept="image/*" hidden><input class="cp" id="ecp" placeholder="تصویر کا عنوان یا ماخذ (اختیاری)، مثلاً: تصویر: نام / بشکریہ" hidden><div class="bd" id="bd" contenteditable data-ph="اپنی کہانی لکھیں…"></div></div></div>
+<div class="mb" id="cm"><div class="md"><div class="mh"><h2>رائے</h2><button class="x" data-x aria-label="بند کریں">×</button></div><small id="cT"></small><div id="cL"></div><form id="cf"><div class="f"><label for="cn">نام</label><input id="cn" required></div><div class="f"><label for="ct">آپ کی رائے</label><textarea id="ct" required minlength="2" placeholder="اپنی رائے احترام سے لکھیں"></textarea></div><button class="btn" type="submit">رائے شامل کریں</button></form></div></div>
+<div class="toast" id="toast" role="status"></div>
+<script>
+const D=n=>String(n).replace(/\d/g,x=>'۰۱۲۳۴۵۶۷۸۹'[x]),E=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),$=s=>document.querySelector(s);
+const I=p=>`<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="${p}"/></svg>`;
+const SV={h:I('M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z'),c:I('M4 5h16v11H9l-5 4z'),s:I('M12 15V4M8 8l4-4 4 4M5 13v7h14v-7')};
+const posts=[
+{id:1,a:'ماہ نور علی',bio:'ڈیزائنر، لاہور',t:'اردو ویب سائٹس نستعلیق کو سنبھال کیوں نہیں پاتیں؟',x:'زیادہ تر ویب سائٹس نستعلیق کو عام فونٹ کی طرح برتتی ہیں۔ لائن کی اونچائی، سائز اور جگہ کی بہت سی غلطیاں یہیں سے شروع ہوتی ہیں۔',c:'ٹیکنالوجی',m:'آج · کالم · ۶ منٹ',l:24,k:[['عائشہ','لائن کی اونچائی والی بات بالکل درست ہے۔']]},
+{id:2,a:'احمد رضا',bio:'استاد اور مترجم، کراچی',t:'ہمارے بچے اردو پڑھنا کیوں نہیں سیکھ پاتے؟',x:'اسکول کی کتابیں اردو کو مضمون بناتی ہیں، عادت نہیں۔ جب تک گھر میں پڑھنے کو کچھ دل چسپ نہ ہو، نصاب اکیلا کچھ نہیں بدل سکتا۔',c:'تعلیم',m:'کل · مضمون · ۴ منٹ',l:41,k:[['حسن','نصاب سے زیادہ گھر کا ماحول اثر کرتا ہے۔'],['مریم','بچوں کے لیے دل چسپ اردو کتابیں کم ہیں، یہی اصل مسئلہ ہے۔']]},
+{id:3,a:'زینب فاطمہ',bio:'محقق، اسلام آباد',t:'پرانے رسالوں کے ڈھیر سے کیا ملا',x:'ایک کتب فروش کے ہاں سے دہائیوں پرانے رسالے ملے۔ اشتہاروں، خطوط اور قارئین کے تبصروں میں اس دور کا ذوق صاف دکھائی دیتا ہے۔',c:'ادب',m:'۲ دن پہلے · ذاتی مضمون · ۵ منٹ',l:18,k:[['علی','پرانے رسالوں میں قارئین کے خطوط واقعی ایک تاریخ ہیں۔']]},
+{id:4,a:'بلال حیدر',bio:'مدیر، فیصل آباد',t:'دفتر کی میٹنگ میں اردو بولنے پر جھجک کیوں؟',x:'اجلاسوں میں انگریزی کو پیشہ ورانہ سمجھا جاتا ہے، چاہے بات سمجھانے میں دقت ہو۔ یہ عادت کب بنی، اور کیا اسے بدلنا ممکن ہے؟',c:'سماج',m:'۳ دن پہلے · کالم · ۴ منٹ',l:12,k:[['فریحہ','اپنی زبان میں بات کرنے کا اعتماد بھی ایک مسئلہ ہے۔']]}
+];
+const PAL=[['#e8d5c4','#b5543c','#2f3e46'],['#d6e2e9','#3d5a80','#ee6c4d'],['#e9edc9','#606c38','#bc6c25'],['#f1e3f3','#6d597a','#e56b6f'],['#dde5b6','#283618','#dda15e']];
+function art(p){const h=[...p.t].reduce((a,c)=>(a*31+c.charCodeAt(0))>>>0,7),P=PAL[h%5],r=n=>(h>>>n)%40;return `<svg viewBox="0 0 160 108" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" aria-hidden="true"><rect width="160" height="108" fill="${P[0]}"/><circle cx="${40+r(3)}" cy="${30+r(5)}" r="${28+r(7)%20}" fill="${P[1]}"/><rect x="${80+r(9)%30}" y="${34+r(11)%20}" width="${46+r(2)%20}" height="80" rx="4" fill="${P[2]}" opacity=".85"/><path d="M0 ${88+r(4)%10}Q40 ${66+r(6)%20} 80 90T160 ${84+r(8)%10}V108H0z" fill="${P[2]}" opacity=".45"/></svg>`}
+let topic='سب',q='',cur,tt;
+const T=$('#toast');function toast(m){T.textContent=m;T.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>T.classList.remove('show'),2400)}
+function render(){const L=posts.filter(p=>(topic==='سب'||p.c===topic)&&(!q||(p.t+p.x+p.a+p.c).includes(q)));$('#feed').innerHTML=L.length?L.map(p=>`<article class="post"><div class="by"><span class="av">${E(p.a[0])}</span><b>${E(p.a)}</b><span class="bio">${E(p.bio)}</span></div><div class="cd"><div class="tx"><h3>${E(p.t)}</h3><p>${E(p.x)}</p></div><div class="th">${p.img?`<img src="${E(p.img)}" alt="${E(p.cap||'')}" style="width:100%;height:100%;object-fit:cover">`:art(p)}</div></div><div class="row"><span>${E(p.m)}</span><span class="chip">${E(p.c)}</span><span class="sp"></span><button class="ic${p.v?' on':''}" data-a="like" data-i="${p.id}" aria-pressed="${!!p.v}" aria-label="پسند">${SV.h}${D(p.l)}</button><button class="ic" data-a="cmt" data-i="${p.id}" aria-label="رائے">${SV.c}${D(p.k.length)}</button><button class="ic" data-a="share" data-i="${p.id}" aria-label="شیئر">${SV.s}</button></div></article>`).join(''):'<div class="empty">'+(q?'کوئی نتیجہ نہیں ملا۔':'اس موضوع میں ابھی کوئی تحریر نہیں۔')+'</div>'}
+function rc(){$('#cL').innerHTML=cur.k.length?cur.k.map(([n,t])=>`<div class="cm"><b>${E(n)}</b><div>${E(t)}</div></div>`).join(''):'<div class="empty">ابھی کوئی رائے نہیں۔ پہلی رائے آپ دے سکتے ہیں۔</div>'}
+async function sh(p){const t=p.t+' — سُخنک';try{if(navigator.share)await navigator.share({title:p.t,text:t,url:location.href});else{await navigator.clipboard.writeText(t+'\n'+location.href);toast('لنک کاپی ہو گیا')}}catch(e){if(e.name!=='AbortError')toast('شیئرنگ اس ڈیمو میں دستیاب نہیں')}}
+$('#feed').addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(!b)return;const p=posts.find(x=>x.id==b.dataset.i);if(b.dataset.a==='like'){p.v=!p.v;p.l+=p.v?1:-1;render()}else if(b.dataset.a==='cmt'){cur=p;$('#cT').textContent=p.t;rc();$('#cm').classList.add('open')}else sh(p)});
+const tabs=document.querySelectorAll('.tab');function setT(t){topic=t;tabs.forEach(b=>b.classList.toggle('on',b.dataset.t===t));render()}tabs.forEach(b=>b.onclick=()=>setT(b.dataset.t));
+const shut=el=>el.classList.remove('open');
+$('#q').oninput=e=>{q=e.target.value.trim();render()};
+function clean(h){const d=new DOMParser().parseFromString(h,'text/html').body;d.querySelectorAll('*').forEach(n=>{if(!/^(P|DIV|B|STRONG|U|I|EM|H2|BLOCKQUOTE|UL|OL|LI|BR)$/.test(n.tagName))n.replaceWith(n.textContent);else[...n.attributes].forEach(a=>{if(!(a.name==='class'&&n.className==='sh'))n.removeAttribute(a.name)})});return d.innerHTML}
+const ed=$('#ed'),bd=$('#bd'),CV='＋ کور تصویر شامل کریں';let img='';
+function cnt(){const w=(bd.innerText.trim().match(/\S+/g)||[]).length;$('#st').textContent=D(w)+' الفاظ · '+D(Math.max(1,Math.round(w/180)))+' منٹ'}
+bd.oninput=cnt;
+$('#w1').onclick=()=>{ed.classList.add('open');cnt()};$('#ex').onclick=()=>ed.classList.remove('open');
+$('#tb').onmousedown=e=>e.preventDefault();
+$('#tb').onclick=e=>{const b=e.target.closest('button');if(!b)return;bd.focus();const c=b.dataset.c,v=b.dataset.v;if(c==='sh')document.execCommand('insertHTML',false,'<div class="sh">مصرعۂ اول<br>مصرعۂ ثانی</div><p><br></p>');else document.execCommand(c,false,v?'<'+v+'>':null);cnt()};
+$('#cv').onclick=()=>$('#ei').click();
+$('#ei').onchange=()=>{const f=$('#ei').files[0];if(!f)return;if(f.size>4e6)return toast('تصویر ۴ ایم بی سے چھوٹی رکھیں');const r=new FileReader();r.onload=()=>{img=r.result;$('#cv').innerHTML='<img src="'+img+'" alt="">';$('#ecp').hidden=false};r.readAsDataURL(f)};
+$('#ep').onclick=()=>{const a=$('#ea').value.trim(),t=$('#et').value.trim(),s=$('#es').value.trim(),tx=bd.innerText.trim();if(!a||!t||tx.length<10)return toast('نام، عنوان اور کچھ متن ضروری ہے');const w=(tx.match(/\S+/g)||[]).length;posts.unshift({id:Date.now(),a,bio:'نیا لکھاری',t,s,b:clean(bd.innerHTML),img,cap:$('#ecp').value.trim(),x:s||(tx.length>150?tx.slice(0,150)+'…':tx),c:$('#ec').value,m:'ابھی ابھی · '+D(Math.max(1,Math.round(w/180)))+' منٹ',l:0,k:[]});['#ea','#et','#es','#ecp','#ei'].forEach(i=>$(i).value='');bd.innerHTML='';img='';$('#cv').textContent=CV;$('#ecp').hidden=true;ed.classList.remove('open');setT('سب');toast('آپ کی تحریر ڈیمو میں شامل ہو گئی');$('#tabs').scrollIntoView()};
+$('.logo').onclick=e=>{e.preventDefault();scrollTo({top:0,behavior:'smooth'})};
+document.querySelectorAll('.foot a').forEach(a=>a.onclick=e=>{e.preventDefault();toast('یہ صفحہ ابھی ڈیمو میں شامل نہیں')});
+document.querySelectorAll('[data-x]').forEach(b=>b.onclick=()=>shut(b.closest('.mb')));
+document.querySelectorAll('.mb').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)shut(m)}));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.mb.open').forEach(shut)});
+$('#cf').onsubmit=e=>{e.preventDefault();const n=$('#cn').value.trim(),t=$('#ct').value.trim();if(!n||!t)return;cur.k.push([n,t]);rc();render();e.target.reset();toast('آپ کی رائے شامل ہو گئی')};
+render();
+</script>
+</body>
+</html>

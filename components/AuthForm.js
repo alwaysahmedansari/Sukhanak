@@ -54,7 +54,8 @@ function urduError(code) {
     case "auth/cancelled-popup-request":
       return "";
     default:
-      return "کچھ غلط ہو گیا۔ دوبارہ کوشش کریں۔";
+      // اب یہاں اصل ایرر کوڈ بھی نظر آئے گا
+      return `کچھ غلط ہو گیا (Code: ${code})۔ دوبارہ کوشش کریں۔`;
   }
 }
 
@@ -76,10 +77,14 @@ export default function AuthForm({ next = "/" }) {
   }
 
   function showError(err) {
+    // براؤزر کے کنسول میں اصل ایرر دیکھنے کے لیے
+    console.log("ASAL ERROR:", err); 
+    
     if (typeof err?.code === "string" && err.code.startsWith("auth/")) {
       setError(urduError(err.code));
     } else {
-      setError(err?.message || "کچھ غلط ہو گیا۔ دوبارہ کوشش کریں۔");
+      // اگر سرور کی طرف سے کوئی ایرر آئے تو اس کا اصل میسج دکھائیں
+      setError(`ایرر: ${err?.message || "کچھ غلط ہو گیا۔ دوبارہ کوشش کریں۔"}`);
     }
   }
 

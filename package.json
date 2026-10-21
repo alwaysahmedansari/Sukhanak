@@ -10,6 +10,11 @@
     "build": "next build",
     "start": "next start"
   },
+  "overrides": {
+    "firebase-admin": {
+      "jwks-rsa": "3.2.2"
+    }
+  },
   "dependencies": {
     "firebase": "^12.18.0",
     "firebase-admin": "^14.4.0",

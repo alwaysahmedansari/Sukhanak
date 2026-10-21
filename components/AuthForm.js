@@ -29,36 +29,6 @@ const SUBMIT = {
   reset: "لنک بھیجیں",
 };
 
-// Firebase کے کوڈ سے اردو پیغام۔ خالی رشتہ = خاموش رہنا (صارف نے خود ونڈو بند کی)۔
-function urduError(code) {
-  switch (code) {
-    case "auth/invalid-credential":
-    case "auth/wrong-password":
-    case "auth/user-not-found":
-      return "ای میل یا پاس ورڈ درست نہیں۔";
-    case "auth/email-already-in-use":
-      return "اس ای میل سے اکاؤنٹ پہلے سے موجود ہے۔";
-    case "auth/weak-password":
-      return "پاس ورڈ کمزور ہے۔ کم از کم ۸ حروف رکھیں۔";
-    case "auth/invalid-email":
-      return "ای میل کا فارمیٹ درست نہیں۔";
-    case "auth/too-many-requests":
-      return "بہت زیادہ کوششیں ہو چکی ہیں۔ کچھ دیر بعد دوبارہ کوشش کریں۔";
-    case "auth/network-request-failed":
-      return "انٹرنیٹ سے رابطہ نہیں ہو سکا۔";
-    case "auth/popup-blocked":
-      return "براؤزر نے پاپ اپ روک دیا۔ اجازت دے کر دوبارہ کوشش کریں۔";
-    case "auth/account-exists-with-different-credential":
-      return "یہ ای میل کسی دوسرے طریقے سے رجسٹر ہے۔";
-    case "auth/popup-closed-by-user":
-    case "auth/cancelled-popup-request":
-      return "";
-    default:
-      // اب یہاں اصل ایرر کوڈ بھی نظر آئے گا
-      return `کچھ غلط ہو گیا (Code: ${code})۔ دوبارہ کوشش کریں۔`;
-  }
-}
-
 export default function AuthForm({ next = "/" }) {
   const router = useRouter();
   const [mode, setMode] = useState("login");
@@ -77,15 +47,13 @@ export default function AuthForm({ next = "/" }) {
   }
 
   function showError(err) {
-    // براؤزر کے کنسول میں اصل ایرر دیکھنے کے لیے
-    console.log("ASAL ERROR:", err); 
+    console.error("ASAL ERROR DETAILED:", err); 
     
-    if (typeof err?.code === "string" && err.code.startsWith("auth/")) {
-      setError(urduError(err.code));
-    } else {
-      // اگر سرور کی طرف سے کوئی ایرر آئے تو اس کا اصل میسج دکھائیں
-      setError(`ایرر: ${err?.message || "کچھ غلط ہو گیا۔ دوبارہ کوشش کریں۔"}`);
-    }
+    // اصل ایرر کوڈ اور میسج کو بغیر کسی فلٹر کے سکرین پر دکھائیں
+    const code = err?.code || "API/Server Error";
+    const message = err?.message || "غیر متوقع مسئلہ پیش آیا۔";
+    
+    setError(`ایرر [${code}]: ${message}`);
   }
 
   // Firebase میں لاگ اِن ہو چکا؛ اب سرور سے سیشن کوکی لیں
@@ -96,12 +64,15 @@ export default function AuthForm({ next = "/" }) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ idToken, name: displayName }),
     });
+    
     const data = await res.json().catch(() => ({}));
 
     if (!res.ok || !data.ok) {
-      // سیشن نہ بنا تو براؤزر کو بھی لاگ آؤٹ رکھیں، تاکہ دونوں طرف حالت ایک جیسی رہے
+      // سیشن نہ بنا تو براؤزر کو بھی لاگ آؤٹ رکھیں
       await signOut(getClientAuth()).catch(() => {});
-      throw new Error(data.error || "سرور سے رابطہ نہیں ہو سکا۔");
+      
+      const serverDetail = data.error || data.details || `HTTP Status: ${res.status} ${res.statusText}`;
+      throw new Error(`Session API Failed -> ${serverDetail}`);
     }
 
     router.replace(safeNextPath(next));
@@ -119,7 +90,6 @@ export default function AuthForm({ next = "/" }) {
 
       if (mode === "reset") {
         await sendPasswordResetEmail(auth, email.trim());
-        // یہ نہیں بتاتے کہ ای میل رجسٹر ہے یا نہیں
         setInfo("اگر یہ ای میل رجسٹر ہے تو پاس ورڈ بدلنے کا لنک بھیج دیا گیا ہے۔");
       } else if (mode === "signup") {
         const cred = await createUserWithEmailAndPassword(auth, email.trim(), password);

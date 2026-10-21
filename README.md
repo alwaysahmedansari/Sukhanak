@@ -14,4 +14,4 @@
 ```bash
 npm install
 cp .env.example .env.local   # پھر اپنی کیز بھریں
-npm run dev 
+npm run dev

@@ -254,4 +254,4 @@ export default function AuthForm({ next = "/" }) {
       )}
     </div>
   );
-} 
+}

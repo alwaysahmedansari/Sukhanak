@@ -1,0 +1,73 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ڈیفالٹ: سب بند۔
+    // لکھنے کا ہر کام سرور (Admin SDK) سے ہوتا ہے، جو ان اصولوں سے گزرتا ہی نہیں۔
+    // اس لیے یہاں براؤزر کے لیے ہر write بند ہے۔
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return signedIn() && request.auth.uid == uid;
+    }
+
+    function postIsPublished(postId) {
+      return get(/databases/$(database)/documents/posts/$(postId)).data.status == 'published';
+    }
+
+    // ---------- صارفین ----------
+    match /users/{uid} {
+      allow read: if true;
+      allow write: if false;
+
+      match /bookmarks/{postId} {
+        allow read: if isOwner(uid);
+        allow write: if false;
+      }
+
+      match /following/{otherId} {
+        allow read: if isOwner(uid);
+        allow write: if false;
+      }
+
+      match /followers/{otherId} {
+        allow read: if isOwner(uid);
+        allow write: if false;
+      }
+    }
+
+    // ---------- تحریریں ----------
+    // فہرست والی تلاش میں status == 'published' یا authorId == اپنا uid لازم ہے۔
+    match /posts/{postId} {
+      allow read: if resource.data.status == 'published'
+                  || isOwner(resource.data.authorId);
+      allow write: if false;
+
+      match /comments/{commentId} {
+        allow read: if postIsPublished(postId);
+        allow write: if false;
+      }
+
+      match /likes/{uid} {
+        allow read: if isOwner(uid);
+        allow write: if false;
+      }
+    }
+
+    // ---------- موضوعات ----------
+    match /topics/{slug} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // usernames اور reports: براؤزر کو کوئی رسائی نہیں (نیچے والا اصول)
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+} 
